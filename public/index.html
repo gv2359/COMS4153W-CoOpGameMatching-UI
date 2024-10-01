@@ -19,6 +19,9 @@
         <div style="margin-top: 1rem;">
             <button class="search-button" onclick="performSearch()">Search</button>
         </div>
+        <div style="margin-top: 1rem;">
+            <button class="register-button" onclick="showRegisterModal()">Register</button>
+        </div>
     </main>
 
     <div id="gameModal" class="modal">
@@ -51,6 +54,23 @@
                     <button type="submit" class="submit-button">Submit Request</button>
                 </form>
             </div>
+        </div>
+    </div>
+
+    <!-- New Registration Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeRegisterModal()">&times;</span>
+            <h2>Register</h2>
+            <form id="registerForm">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <button type="submit" class="submit-button">Register Now</button>
+            </form>
         </div>
     </div>
 

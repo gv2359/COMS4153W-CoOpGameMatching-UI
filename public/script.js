@@ -1,6 +1,7 @@
 const gameModal = document.getElementById("gameModal");
 const matchRequestModal = document.getElementById("matchRequestModal");
 const closeBtns = document.getElementsByClassName("close");
+const registerModal = document.getElementById("registerModal");
 
 function performSearch() {
     const searchTerm = document.querySelector('.search-input').value;
@@ -47,16 +48,71 @@ Array.from(closeBtns).forEach(btn => {
     btn.onclick = function() {
         gameModal.style.display = "none";
         matchRequestModal.style.display = "none";
+        registerModal.style.display = "none";
     }
 });
 
-// Close modals when clicking outside
 window.onclick = function(event) {
     if (event.target == gameModal) {
         gameModal.style.display = "none";
     }
     if (event.target == matchRequestModal) {
         matchRequestModal.style.display = "none";
+    }
+    if (event.target == registerModal) {
+        registerModal.style.display = "none";
+    }
+}
+
+function showRegisterModal() {
+    registerModal.style.display = "block";
+}
+
+function closeRegisterModal() {
+    registerModal.style.display = "none";
+}
+
+async function handleRegister(event) {
+    console.log("Registering user...");
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const formValues = Object.fromEntries(formData.entries());
+
+    const registerData = {
+        userId: formValues.username, 
+        email: formValues.email,  
+        password: "",
+        displayName: "string",
+        steamID: "string"
+    };
+
+    try {
+        const response = await fetch('YOUR URL HERE...', {
+            method: 'POST',
+            headers: {
+                'accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(registerData)
+        });
+
+        if (response.status === 400) {
+            alert("User already exists.");
+            return;
+        }
+
+        if (!response.ok) {
+            console.error("Registration failed:", response);
+            throw new Error('Registration failed');
+        }
+
+        const result = await response.json();
+        console.log("Registration successful:", result);
+        alert("Registration submitted successfully!");
+        closeRegisterModal();
+    } catch (error) {
+        console.error("Registration error:", error);
+        alert("Something went wrong");
     }
 }
 
@@ -69,3 +125,5 @@ document.querySelector('.search-input').addEventListener('keypress', function(e)
 document.querySelector('.search-button').addEventListener('click', performSearch);
 
 document.getElementById('matchRequestForm').addEventListener('submit', handleMatchRequest);
+
+document.getElementById('registerForm').addEventListener('submit', handleRegister);

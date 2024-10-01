@@ -181,3 +181,45 @@ body, html {
 .submit-button:hover {
     background-color: #45a049;
 }
+
+.register-button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.register-button:hover {
+    background-color: #45a049;
+}
+
+#registerModal .modal-content {
+    max-width: 400px;
+}
+
+#registerForm {
+    display: flex;
+    flex-direction: column;
+}
+
+#registerForm label {
+    margin-top: 10px;
+}
+
+#registerForm input {
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#registerForm .submit-button {
+    margin-top: 20px;
+}
