@@ -1,28 +1,40 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile - Co-op Matcher</title>
+    <title>Profile</title>
     <link rel="stylesheet" href="profile.css">
 </head>
 <body>
     <header>
-        <h1>Co-op Matcher Profile</h1>
-        <a href="/" class="back-button">Back to Main</a>
+        <nav>
+            <div class="nav-left">
+                <a href="/search-games" id="nav-search" class="nav-button">Search Games</a>
+                <a href="/my-requests" id="nav-requests" class="nav-button">My Match Requests</a>
+            </div>
+            <div class="nav-right">
+                <a href="/profile" id="nav-profile" class="nav-button">👤</a>
+                <a href="/" id="nav-home" class="nav-button">Back to Main</a>
+            </div>
+        </nav>
     </header>
+
     <main>
         <div class="profile-info">
             <h2>User Profile</h2>
+            <img id="profilePicture" src="default-profile.png" alt="Profile Picture" class="profile-picture">
+            <input type="file" id="profilePictureInput" accept="image/*" style="display: none;">
+            <button class="upload-button" id="uploadProfilePictureButton">Upload Profile Picture</button>
             <p><strong>Name:</strong> <span id="userName">John Doe</span></p>
             <p><strong>Email:</strong> <span id="userEmail">john@example.com</span></p>
-            <p><strong>Steam ID:</strong> <span id="userSteamId">STEAM_1:2:3456789</span></p>
+            <p><strong>Steam ID:</strong> <span id="userSteamId"></span></p>
+            <button class="validate-button" id="validateSteamIdButton">Validate Steam ID</button>
         </div>
-        <div class="match-requests">
-            <h2>Your Match Requests</h2>
-            <ul id="matchRequestsList">
-                <!-- Match requests will be populated here -->
-            </ul>
+        <div class="profile-actions">
+            <h2>Actions</h2>
+            <button class="edit-button" id="editProfileButton">Edit Profile</button>
+            <button class="delete-button" id="deleteProfileButton">Delete Profile</button>
         </div>
     </main>
     <script src="profile.js"></script>
