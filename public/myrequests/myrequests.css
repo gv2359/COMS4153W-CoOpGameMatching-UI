@@ -43,6 +43,15 @@ nav {
     margin-left: 10px;
 }
 
+.page-button {
+    background-color: #4a90e2;
+    color: white;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-left: 10px;
+}
+
 main {
     max-width: 800px;
     margin: 2rem auto;
