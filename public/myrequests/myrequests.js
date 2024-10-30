@@ -25,7 +25,7 @@
 //         { game: "Game12", date: "2023-05-05" }]};
 
 let currentPage = 1;
-const matchesPerPage = 3;
+const matchesPerPage = 5;
 
 
 // Hide pagination buttons initially
@@ -69,7 +69,7 @@ async function fetchMatchData() {
 
     console.log(response);
 
-    return response.matchRequests.slice((currentPage-1)*matchesPerPage,currentPage*matchesPerPage);
+    return response.matchRequests;
 }
 
 
