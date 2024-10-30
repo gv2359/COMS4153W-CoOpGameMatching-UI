@@ -21,6 +21,7 @@ const closeBtns = document.getElementsByClassName("close");
 let currentPage = 1;
 const gamesPerPage = 10;
 let games = [];
+let current_game_id = "";
 
 // Hide pagination buttons initially
 const prevButton = document.getElementById("prevButton");
@@ -95,6 +96,7 @@ function previousPage() {
 
 
 function showGameInfo(gameData) {
+    current_game_id = gameData.gameId;
     document.getElementById("gameTitle").textContent = gameData.title;
     document.getElementById("gameImage").src = gameData.image;
     document.getElementById("gameDescription").textContent = gameData.description;
@@ -107,15 +109,54 @@ function showMatchRequestForm() {
     matchRequestModal.style.display = "block";
 }
 
-function handleMatchRequest(event) {
+// function handleMatchRequest(event) {
+//     event.preventDefault();
+//     const formData = new FormData(event.target);
+//     const matchData = Object.fromEntries(formData.entries());
+    
+//     // Here you would typically send this data to your backend
+//     console.log("Match request data:", matchData);
+    
+//     alert("Match request submitted successfully!");
+//     matchRequestModal.style.display = "none";
+// }
+
+async function handleMatchRequest(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const matchData = Object.fromEntries(formData.entries());
+    // const matchData = Object.fromEntries(formData.entries());
+    const matchData = {
+        // userId: formData.get('steamId'),
+        userId: '12345',
+        gameId: current_game_id,
+        expireDate: formData.get('expirationDate'),
+        isActive: true,
+        isCancelled: false
+    };
+
+    console.log('match:', matchData);
     
-    // Here you would typically send this data to your backend
-    console.log("Match request data:", matchData);
-    
-    alert("Match request submitted successfully!");
+    try {
+        const response = await fetch('http://127.0.0.1:8000/match-requests', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': 'application/json'
+            },
+            body: JSON.stringify(matchData)
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to create match request');
+        }
+
+        const data = await response.json();
+        console.log('Match request created:', data);
+        alert('Match request submitted successfully!');
+    } catch (error) {
+        console.error('Error creating match request:', error);
+        alert('An error occurred while creating match request.');
+    }
     matchRequestModal.style.display = "none";
 }
 
