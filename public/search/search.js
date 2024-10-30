@@ -28,30 +28,43 @@ const nextButton = document.getElementById("nextButton");
 prevButton.style.display = "none";
 nextButton.style.display = "none";
 
-function performSearch() {
+async function performSearch() {
     const searchTerm = document.querySelector('.search-input').value;
     if (searchTerm.trim() !== "") {
-        // Simulate fetching game data from backend
-        games = Array.from({ length: 50 }, (_, i) => ({
-            title: `${searchTerm} Game ${i + 1}`,
-            image: "https://via.placeholder.com/200x300.png?text=Game+Image",
-            description: `This is a mock description for the game "${searchTerm} Game ${i + 1}".`
-        }));
-        currentPage = 1;
-        displayGames();
-    } else {
-        alert("Please enter a game title to search.");
+        try {
+            const url = new URL(`http://127.0.0.1:8000/games`);
+            url.searchParams.append('page', currentPage);
+            url.searchParams.append('page_size', gamesPerPage);
+            url.searchParams.append('title', searchTerm.trim());
+        
+            
+            const response = await fetch(url, {
+                headers: {
+                    'accept': 'application/json'
+                }
+            });
+            if (!response.ok) {
+                throw new Error("Failed to fetch games");
+            }
+
+            const data = await response.json();
+            // console.log("Fetched data:", data);
+            games = data.games;
+            updatePaginationButtons(data.links);
+            displayGames();
+
+        } catch (error) {
+            console.error("Error fetching games:", error);
+            alert("An error occurred while fetching games.");
+        }
     }
 }
 
 function displayGames() {
     const gameList = document.getElementById("gameList");
     gameList.innerHTML = "";
-
-    const startIndex = (currentPage - 1) * gamesPerPage;
-    const endIndex = Math.min(startIndex + gamesPerPage, games.length);
     
-    for (let i = startIndex; i < endIndex; i++) {
+    for (let i = 0; i < games.length; i++) {
         const game = games[i];
         const gameItem = document.createElement("div");
         gameItem.classList.add("game-item");
@@ -60,22 +73,22 @@ function displayGames() {
         `;
         gameList.appendChild(gameItem);
     }
+}
 
-    document.getElementById("prevButton").style.display = currentPage > 1 ? "block" : "none";
-    document.getElementById("nextButton").style.display = endIndex < games.length ? "block" : "none";
+function updatePaginationButtons(links) {
+    prevButton.style.display = links.prev ? "block" : "none";
+    nextButton.style.display = links.next ? "block" : "none";
 }
 
 function nextPage() {
-    if (currentPage * gamesPerPage < games.length) {
-        currentPage++;
-        displayGames();
-    }
+    currentPage++;
+    performSearch();
 }
 
 function previousPage() {
     if (currentPage > 1) {
         currentPage--;
-        displayGames();
+        performSearch();
     }
 }
 
