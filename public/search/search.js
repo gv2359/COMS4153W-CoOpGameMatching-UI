@@ -33,7 +33,7 @@ async function performSearch() {
     const searchTerm = document.querySelector('.search-input').value;
     if (searchTerm.trim() !== "") {
         try {
-            const url = new URL(`http://127.0.0.1:8000/games`);
+            const url = new URL(`http://127.0.0.1:8002/games`);
             url.searchParams.append('page', currentPage);
             url.searchParams.append('page_size', gamesPerPage);
             url.searchParams.append('title', searchTerm.trim());
@@ -137,7 +137,7 @@ async function handleMatchRequest(event) {
     console.log('match:', matchData);
     
     try {
-        const response = await fetch('http://127.0.0.1:8000/match-requests', {
+        const response = await fetch('http://127.0.0.1:8002/match-requests', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
