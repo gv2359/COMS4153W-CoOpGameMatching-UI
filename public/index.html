@@ -7,11 +7,10 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header class="header">
+    <!-- <header class="header">
         <div class="profile-icon" onclick="window.location.href='/profile'">👤</div>
-    </header>
+    </header> -->
     <main class="main-content">
-        <div class="logo">Co-op matching platform</div>
         
         <!-- New Login and Register buttons -->
         <div style="margin-top: 2rem;">
@@ -32,8 +31,9 @@
                 
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
-                
-                <button type="submit" class="submit-button" onclick="handleRegister()">Register Now</button>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit" class="submit-button">Register Now</button>
             </form>
         </div>
     </div>
@@ -41,16 +41,16 @@
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <!-- Close button with an ID -->
-<!--            <span class="close" id="closeLoginModal">&times;</span>-->
+            <span class="close" id="closeLoginModal">&times;</span>
             <h2>Login</h2>
             <form id="loginForm">
-                <label for="loginUsername">Username:</label>
-                <input type="text" id="loginUsername" name="loginUsername" required>
+                <label for="loginEmail">Email:</label>
+                <input type="text" id="loginEmail" name="loginEmail" required>
                 
                 <label for="loginPassword">Password:</label>
                 <input type="password" id="loginPassword" name="loginPassword" required>
                 
-                <button type="submit" class="submit-button" onclick="handleLogin()">Login</button>
+                <button type="submit" class="submit-button">Login</button>
             </form>
         </div>
     </div>
