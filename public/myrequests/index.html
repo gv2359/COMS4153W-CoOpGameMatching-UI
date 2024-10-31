@@ -13,18 +13,26 @@
             <a href="/my-requests" id="nav-requests" class="nav-button">My Match Requests</a>
             <div class="nav-right">
                 <a href="/profile" id="nav-profile" class="nav-button">👤</a>
-                <a href="/" id="nav-home" class="nav-button">Back to Main</a>
+                <a href="/" id="nav-home" class="nav-button">Logout</a>
             </div>
         </nav>
     </header>
 
     <main>
+
+
         <div class="match-requests">
             <h2>Your Match Requests</h2>
             <ul id="matchRequestsList">
                 <!-- Match requests will be populated here -->
             </ul>
         </div>
+        <nav class="pagination">
+            <a id="prevButton" class="page-button" onclick="previousPage()">Previous Page</a>
+            <a id="nextButton" class="page-button" onclick="nextPage()">Next Page</a>
+        </nav>
+        <!-- Match List Section -->
+
     </main>
     <script src="./myrequests/myrequests.js"></script>
 </body>

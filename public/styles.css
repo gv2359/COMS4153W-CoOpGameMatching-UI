@@ -5,6 +5,11 @@ body, html {
     font-family: 'Arial', sans-serif;
     background-color: #f0f4f8;
     color: #333;
+    background-image: url('images/home_logo_crop.jpg'); 
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    
 }
 .header {
     position: absolute;
@@ -35,12 +40,8 @@ body, html {
     align-items: center;
     padding: 0 1rem;
 }
-.logo {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #4a90e2;
-    margin-bottom: 2rem;
-}
+
+
 .modal {
     display: none;
     position: fixed;
@@ -177,3 +178,4 @@ body, html {
 #loginForm .submit-button {
     margin-top: 20px;
 }
+
