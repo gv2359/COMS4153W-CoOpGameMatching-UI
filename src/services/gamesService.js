@@ -31,3 +31,37 @@ export const fetchGames = async ({
     throw error;
   }
 };
+
+export const searchGames = async (title) => {
+  try {
+    const params = new URLSearchParams({
+      title: title,
+      page_size: 100
+    });
+
+    const response = await fetch(`${BASE_URL}/games?${params}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error searching games:', error);
+    throw error;
+  }
+};
+
+
+export const updateFavoredGame = async (userId, gameId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/games/${userId}/${gameId}`, {
+      method: 'PUT',
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error updating favored game:', error);
+    throw error;
+  }
+};

@@ -20,7 +20,9 @@ const Navigation = () => {
     <NavWrapper $backgroundColor={backgroundColor}>
       <NavContent>
         <Nav>
-          <Logo>GameMatch</Logo>
+          <Link to="/" style={{ textDecoration: 'none' }}>
+            <Logo>GameMatch</Logo>
+          </Link>
           <Links>
             <Link to="/">Home</Link>
             <Link to="/browse">Browse Games</Link>

@@ -5,13 +5,13 @@ const Pagination = ({ currentPage, hasNextPage, onPageChange }) => {
   // Generate array of page numbers to show
   const getPageNumbers = () => {
     const pages = [];
-    const totalVisible = 5; // Show 5 numbers max
-
-    pages.push(1); // Always show first page
+    
+    // Always show page 1
+    pages.push(1);
 
     if (currentPage <= 3) {
       // Near the start
-      for (let i = 2; i <= Math.min(totalVisible, currentPage + 2); i++) {
+      for (let i = 2; i <= Math.min(5, currentPage + (hasNextPage ? 1 : 0)); i++) {
         pages.push(i);
       }
     } else {

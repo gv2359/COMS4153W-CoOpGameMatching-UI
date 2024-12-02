@@ -10,13 +10,13 @@ type Game = {
     };
   };
   
-  type PaginationLinks = {
+type PaginationLinks = {
     self: { href: string };
     next?: { href: string };
     prev?: { href: string };
-  };
-  
-  type GamesResponse = {
+};
+
+type GamesResponse = {
     games: Game[];
     links: PaginationLinks;
-  };
+};

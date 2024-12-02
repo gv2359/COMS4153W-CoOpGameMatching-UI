@@ -2,17 +2,20 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Search } from 'lucide-react';
 import { fetchGames } from '../../services/gamesService.js';
 import Pagination from '../../components/Pagination/Pagination';
+import { useNavigate } from 'react-router-dom';
+import SearchInput from '../../components/SearchInput/SearchInput';
+import GameCard from '../../components/GameCard/GameCard';
 import {
   Container,
   SubNav,
   SearchContainer,
   SearchWrapper,
-  SearchInput,
+  // SearchInput,
   SearchIcon,
   Tabs,
   Tab,
   GamesGrid,
-  GameCard,
+  // GameCard,
   GameImage,
   GameInfo,
   GameTitle,
@@ -25,6 +28,12 @@ const BrowseGames = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [hasNextPage, setHasNextPage] = useState(false);
   const [activeTab, setActiveTab] = useState('All');
+  const navigate = useNavigate();
+  const isFirstRender = useRef(true);
+
+  const handleGameClick = (game) => {
+    navigate(`/games/${game.gameId}`, { state: { game } });
+  };
 
   const loadGames = async (page, genre) => {
     try {
@@ -33,17 +42,8 @@ const BrowseGames = () => {
         page,
         genre: genre === 'All' ? null : genre
       });
-      
-      if (response.games.length === 0) {
-        setHasNextPage(false);
-        if (page > 1) {
-          setCurrentPage(page - 1);
-        }
-        return;
-      }
-
       setGames(response.games);
-      setHasNextPage(true);
+      setHasNextPage(!!response.links.next);
     } catch (error) {
       console.error('Error fetching games:', error);
       setHasNextPage(false);
@@ -53,6 +53,10 @@ const BrowseGames = () => {
   };
 
   useEffect(() => {
+    // if (isFirstRender.current) {
+    //   isFirstRender.current = false;
+    //   return;
+    // }
     loadGames(currentPage, activeTab);
   }, [currentPage, activeTab]);
 
@@ -86,7 +90,7 @@ const BrowseGames = () => {
             <SearchIcon>
               <Search size={20} />
             </SearchIcon>
-            <SearchInput placeholder="Search games..." />
+            <SearchInput variant='browse' placeholder="Search games..." />
           </SearchWrapper>
           <Tabs>
             <Tab active={activeTab === 'All'} onClick={() => handleTabChange('All')}>All</Tab>
@@ -106,12 +110,11 @@ const BrowseGames = () => {
           <div>Loading...</div>
         ) : (
           games.map(game => (
-            <GameCard key={game.gameId}>
-              <GameImage src={game.links.image.href} alt={game.title} />
-              <GameInfo>
-                <GameTitle>{game.title}</GameTitle>
-              </GameInfo>
-            </GameCard>
+            <GameCard 
+              key={game.gameId}
+              game={game}
+              onClick={() => handleGameClick(game)}
+            />
           ))
         )}
       </GamesGrid>

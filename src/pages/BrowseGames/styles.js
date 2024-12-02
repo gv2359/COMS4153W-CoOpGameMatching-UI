@@ -66,17 +66,21 @@ export const SearchIcon = styled.div`
 
 export const Tabs = styled.div`
   display: flex;
-  gap: 30px;
+  gap: 20px;
 `;
 
 export const Tab = styled.div`
   color: ${props => props.active ? 'white' : 'rgba(255, 255, 255, 0.5)'};
   cursor: pointer;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease; // Changed to 'all' to animate both color and background
   font-size: 1rem;
-
+  padding: 6px 16px; // Add padding to create rectangle shape
+  border-radius: 6px; // Rounded corners
+  background: ${props => props.active ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.05)'};
+  
   &:hover {
     color: white;
+    background: rgba(255, 255, 255, 0.15);
   }
 `;
 
@@ -117,7 +121,7 @@ export const GameCard = styled.div`
 
 
   &:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
   }
 `;
 
@@ -125,4 +129,19 @@ export const GameImage = styled.img`
   width: 100%;
   aspect-ratio: 3/4;
   object-fit: cover;
+`;
+
+export const HeartContainer = styled.div`
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  z-index: 2;
+  cursor: pointer;
+  padding: 8px; // Larger clickable area
+  margin: -8px; // Offset padding to keep position
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.2);
+  }
 `;

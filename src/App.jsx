@@ -6,6 +6,8 @@ import { theme } from './styles/theme';
 import Navigation from './components/Navigation/Navigation';
 import Home from './pages/Home';
 import BrowseGames from './pages/BrowseGames/BrowseGames';
+import GameDetail from './pages/GameDetail/GameDetail';
+import SearchResults from './pages/SearchResults/SearchResults';
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/browse" element={<BrowseGames />} />
+        <Route path="/games/:gameId" element={<GameDetail />} />
+        <Route path="/search" element={<SearchResults />} />
       </Routes>
     </ThemeProvider>
   );
