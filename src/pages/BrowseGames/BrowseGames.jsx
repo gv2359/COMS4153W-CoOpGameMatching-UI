@@ -10,15 +10,10 @@ import {
   SubNav,
   SearchContainer,
   SearchWrapper,
-  // SearchInput,
   SearchIcon,
   Tabs,
   Tab,
   GamesGrid,
-  // GameCard,
-  GameImage,
-  GameInfo,
-  GameTitle,
 } from './styles';
 
 const BrowseGames = () => {

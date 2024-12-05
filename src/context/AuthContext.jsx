@@ -69,8 +69,6 @@ export const AuthProvider = ({ children }) => {
       setUser(null);
     } catch (error) {
       console.error('Error during sign out:', error);
-      // You might want to handle this error differently
-      // For now, still try to clean up the local state
       await auth.signOut();
       sessionStorage.removeItem('user');
       setUser(null);
