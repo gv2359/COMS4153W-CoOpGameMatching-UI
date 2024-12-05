@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "firebase": "^10.14.1",
+    "firebaseui": "^6.1.0",
     "lucide-react": "^0.460.0",
     "particles.js": "^2.0.0",
     "react": "^18.3.1",

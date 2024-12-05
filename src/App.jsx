@@ -8,19 +8,22 @@ import Home from './pages/Home';
 import BrowseGames from './pages/BrowseGames/BrowseGames';
 import GameDetail from './pages/GameDetail/GameDetail';
 import SearchResults from './pages/SearchResults/SearchResults';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <Navigation />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/browse" element={<BrowseGames />} />
-        <Route path="/games/:gameId" element={<GameDetail />} />
-        <Route path="/search" element={<SearchResults />} />
-      </Routes>
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <Navigation />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/browse" element={<BrowseGames />} />
+          <Route path="/games/:gameId" element={<GameDetail />} />
+          <Route path="/search" element={<SearchResults />} />
+        </Routes>
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
 

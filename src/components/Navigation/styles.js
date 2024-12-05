@@ -40,21 +40,6 @@ export const NavWrapper = styled.div`
   }
 `;
 
-
-// export const NavWrapper = styled.div`
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   right: 0;
-//   width: 100%;
-//   backdrop-filter: blur(10px);
-//   display: flex;
-//   justify-content: center;
-//   border-bottom: 4px solid;
-//   border-image: linear-gradient(to right, rgba(0, 255, 255, 0.2), rgba(255, 0, 255, 0.2)) 1;
-//   z-index: 3;
-// `;
-
 export const NavContent = styled.div`
   width: 100%;
   margin: 0;
@@ -87,8 +72,8 @@ export const Links = styled.div`
   height: 100%;
 
   a:last-child {
-    margin-right: 0; // Ensure last link has no margin
-    padding-right: 0; // Optional: remove right padding from last link if needed
+    margin-right: 0; 
+    padding-right: 0;
   }
   
   a {
@@ -122,5 +107,46 @@ export const Links = styled.div`
         width: 100%;
       }
     }
+  }
+`;
+
+export const ProfileContainer = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
+export const DropdownMenu = styled.div`
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #161922;
+  border-radius: 8px;
+  min-width: 150px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  opacity: ${props => props.$isOpen ? 1 : 0};
+  visibility: ${props => props.$isOpen ? 'visible' : 'hidden'};
+  transform: translateY(${props => props.$isOpen ? '0px' : '-10px'});
+  transition: all 0.3s ease;
+`;
+
+export const DropdownItem = styled.div`
+  padding: 12px 16px;
+  color: ${props => props.$isSignOut ? '#ff4757' : 'rgba(255, 255, 255, 0.8)'};
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+  }
+
+  &:first-child {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+
+  &:last-child {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
   }
 `;

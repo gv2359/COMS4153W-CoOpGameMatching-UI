@@ -53,10 +53,10 @@ const BrowseGames = () => {
   };
 
   useEffect(() => {
-    // if (isFirstRender.current) {
-    //   isFirstRender.current = false;
-    //   return;
-    // }
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     loadGames(currentPage, activeTab);
   }, [currentPage, activeTab]);
 
