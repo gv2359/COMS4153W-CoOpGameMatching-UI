@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   Container,
   ContentWrapper,
@@ -14,7 +15,15 @@ import {
 
 const GameDetail = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const game = location.state?.game;
+
+
+
+  const handleMatchClick = (game) => {
+    navigate(`/match-request/${game.gameId}`, { state: { game } });
+  };
+
 
   return (
     <Container>
@@ -30,7 +39,7 @@ const GameDetail = () => {
             </Description>
           </DetailsContainer>
         </GameContent>
-        <MatchButton>Match</MatchButton>
+        <MatchButton onClick={() => handleMatchClick(game)}>Match</MatchButton>
       </ContentWrapper>
     </Container>
   );

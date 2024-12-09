@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import SignInButton  from '../SignInButton/SignInButton';
 import { 
@@ -24,6 +24,7 @@ const getNavBackground = (pathname) => {
 
 const Navigation = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const backgroundColor = getNavBackground(location.pathname);
   const { user, signOut } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -51,7 +52,8 @@ const Navigation = () => {
                 <DropdownMenu $isOpen={isDropdownOpen}>
                   <DropdownItem>Settings</DropdownItem>
                   <DropdownItem>My Favorites</DropdownItem>
-                  <DropdownItem>Match History</DropdownItem>
+                  {/* <DropdownItem><Link to="/match-history" style={{ textDecoration: 'none', color: 'inherit' }}>Match History</Link></DropdownItem> */}
+                  <DropdownItem onClick={() => navigate('/match-history')}>Match History</DropdownItem>
                   <DropdownItem $isSignOut onClick={signOut}>
                     Sign Out
                   </DropdownItem>

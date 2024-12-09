@@ -65,3 +65,89 @@ export const updateFavoredGame = async (userId, gameId) => {
     throw error;
   }
 };
+
+
+export const createMatchRequest = async (requestData) => {
+  try {
+    const response = await fetch(`${BASE_URL}/match-requests`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestData),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error creating match request:', error);
+    throw error;
+  }
+};
+
+
+export const startMatch = async ({ MatchRequestId }) => {
+  try {
+    const response = await fetch(`${BASE_URL}/match-requests/match`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ MatchRequestId }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error starting match:', error);
+    throw error;
+  }
+};
+
+export const fetchMatchStatus = async (matchRequestId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/match/status/${matchRequestId}`);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching match status:', error);
+    throw error;
+  }
+};
+
+export const fetchMatchRequests = async ({ userId, page = 1, pageSize = 10 }) => {
+  try {
+    const params = new URLSearchParams({
+      user_id: userId,
+      page: page.toString(),
+      page_size: pageSize.toString(),
+    });
+
+    const response = await fetch(`${BASE_URL}/match-requests?${params}`);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    return {
+      matchRequests: data.matchRequests || [],
+      links: data.links || {},
+      total: data.total || 0, // Assuming "total" is available for pagination
+    };
+  } catch (error) {
+    console.error('Error fetching match requests:', error);
+    throw error;
+  }
+};

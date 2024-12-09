@@ -9,6 +9,8 @@ import BrowseGames from './pages/BrowseGames/BrowseGames';
 import GameDetail from './pages/GameDetail/GameDetail';
 import SearchResults from './pages/SearchResults/SearchResults';
 import { AuthProvider } from './context/AuthContext';
+import CreateMatchRequest from './pages/CreateMatchRequest/CreateMatchRequest';
+import MatchHistory from './pages/MatchHistory/MatchHistory';
 
 function App() {
   return (
@@ -21,10 +23,13 @@ function App() {
           <Route path="/browse" element={<BrowseGames />} />
           <Route path="/games/:gameId" element={<GameDetail />} />
           <Route path="/search" element={<SearchResults />} />
+          <Route path="/match-request/:gameId" element={<CreateMatchRequest />} />
+          <Route path="/match-history" element={<MatchHistory />} />
         </Routes>
       </ThemeProvider>
     </AuthProvider>
   );
 }
+
 
 export default App;
