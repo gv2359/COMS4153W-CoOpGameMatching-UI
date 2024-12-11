@@ -128,13 +128,13 @@ export const fetchMatchStatus = async (matchRequestId) => {
 export const fetchMatchRequests = async ({ userId, page = 1, pageSize = 10 }) => {
   try {
     const params = new URLSearchParams({
-      user_id: userId,
+      // user_id: userId,
       page: page.toString(),
       page_size: pageSize.toString(),
     });
 
     const response = await fetch(`${BASE_URL}/match-requests?${params}`);
-
+    console.log(response);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

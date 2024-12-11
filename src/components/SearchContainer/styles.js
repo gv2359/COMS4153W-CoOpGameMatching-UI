@@ -69,3 +69,8 @@ export const GameTag = styled.div`
     transform: translateY(-2px);
   }
 `;
+export const GameImage = styled.img`
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+`;
