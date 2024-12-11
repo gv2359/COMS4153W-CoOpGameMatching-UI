@@ -134,12 +134,12 @@ export const fetchMatchRequests = async ({ userId, page = 1, pageSize = 10 }) =>
     });
 
     const response = await fetch(`${BASE_URL}/match-requests?${params}`);
-    console.log(response);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json();
+
 
     return {
       matchRequests: data.matchRequests || [],
@@ -148,6 +148,29 @@ export const fetchMatchRequests = async ({ userId, page = 1, pageSize = 10 }) =>
     };
   } catch (error) {
     console.error('Error fetching match requests:', error);
+    throw error;
+  }
+};
+
+export const fetchGameDetails = async (gameId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/games/${gameId}`);
+    if (!response.ok) {
+      if (response.status === 500) {
+        console.warn(`Game with ID ${gameId} not found.`);
+        // default object for missing games
+        return {
+          gameId: gameId,
+          title: 'Unknown Game',
+          details: 'This game does not exist.',
+          image: "",
+        };
+      }
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching game details:', error);
     throw error;
   }
 };

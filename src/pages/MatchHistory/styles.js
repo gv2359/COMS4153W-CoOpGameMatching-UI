@@ -62,3 +62,11 @@ export const Button = styled.button`
     cursor: not-allowed;
   }
 `;
+
+export const GameImage = styled.img`
+  width: 150px; /* Set a fixed width */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 8px; /* Optional: Rounded corners */
+  margin-right: 16px; /* Space between image and text */
+`;
+
