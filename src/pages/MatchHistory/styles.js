@@ -19,22 +19,22 @@ export const List = styled.div`
   gap: 10px;
 `;
 
-export const ListItem = styled.div`
-  background: ${(props) => (props.selected ? 'rgba(0, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.1)')};
-  border: ${(props) => (props.selected ? '2px solid #00ffff' : '2px solid transparent')};
-  padding: 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+// export const ListItem = styled.div`
+//   background: ${(props) => (props.selected ? 'rgba(0, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.1)')};
+//   border: ${(props) => (props.selected ? '2px solid #00ffff' : '2px solid transparent')};
+//   padding: 20px;
+//   border-radius: 8px;
+//   cursor: pointer;
+//   transition: all 0.3s ease;
 
-  &:hover {
-    background: rgba(255, 255, 255, 0.15);
-  }
+//   &:hover {
+//     background: rgba(255, 255, 255, 0.15);
+//   }
 
-  div {
-    margin-bottom: 5px;
-  }
-`;
+//   div {
+//     margin-bottom: 5px;
+//   }
+// `;
 
 export const Pagination = styled.div`
   display: flex;
@@ -63,10 +63,32 @@ export const Button = styled.button`
   }
 `;
 
+// export const GameImage = styled.img`
+//   width: 150px; /* Set a fixed width */
+//   height: auto; /* Maintain aspect ratio */
+//   border-radius: 8px; /* Optional: Rounded corners */
+//   margin-right: 16px; /* Space between image and text */
+// `;
+
 export const GameImage = styled.img`
-  width: 150px; /* Set a fixed width */
-  height: auto; /* Maintain aspect ratio */
-  border-radius: 8px; /* Optional: Rounded corners */
-  margin-right: 16px; /* Space between image and text */
+  width: 100px; /* Slightly smaller image */
+  height: 100px; /* Maintain square size */
+  border-radius: 12px; /* Rounded corners */
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a shadow for depth */
 `;
 
+
+export const ListItem = styled.div`
+  background: ${(props) => (props.selected ? 'rgba(0, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.1)')};
+  border: ${(props) => (props.selected ? '2px solid #00ffff' : '2px solid transparent')};
+  padding: 20px;
+  border-radius: 12px; /* Softer rounded corners */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for a card effect */
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+`;

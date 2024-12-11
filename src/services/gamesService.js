@@ -125,32 +125,65 @@ export const fetchMatchStatus = async (matchRequestId) => {
   }
 };
 
-export const fetchMatchRequests = async ({ userId, page = 1, pageSize = 10 }) => {
+// export const fetchMatchRequests = async ({ userId, page = 1, pageSize = 10 }) => {
+//   try {
+//     const params = new URLSearchParams({
+//       // user_id: userId,
+//       page: page.toString(),
+//       page_size: pageSize.toString(),
+//     });
+//     console.log('fetchMatchRequests params:', params);
+//     const response = await fetch(`${BASE_URL}/match-requests?${params}`);
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
+
+//     const data = await response.json();
+//     console.log('fetchMatchRequests:', data);
+
+//     return {
+//       matchRequests: data.matchRequests || [],
+//       links: data.links || {},
+//       total: data.total || 0, // Assuming "total" is available for pagination
+//     };
+//   } catch (error) {
+//     console.error('Error fetching match requests:', error);
+//     throw error;
+//   }
+// };
+export const fetchMatchRequests = async ({ userId, url = null, page = 1, pageSize = 10 }) => {
   try {
-    const params = new URLSearchParams({
-      // user_id: userId,
+    const endpoint = url || `${BASE_URL}/match-requests?${new URLSearchParams({
       page: page.toString(),
       page_size: pageSize.toString(),
-    });
+    })}`;
 
-    const response = await fetch(`${BASE_URL}/match-requests?${params}`);
+    console.log('fetchMatchRequests endpoint:', endpoint);
+
+    const response = await fetch(endpoint, {
+      headers: {
+        Authorization: `Bearer ${userId}`, 
+      },
+    });
+    console.log('fetchMatchRequests response:', response);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json();
-
+    console.log('fetchMatchRequests response:', data);
 
     return {
       matchRequests: data.matchRequests || [],
       links: data.links || {},
-      total: data.total || 0, // Assuming "total" is available for pagination
+      total: data.total || 0,
     };
   } catch (error) {
     console.error('Error fetching match requests:', error);
     throw error;
   }
 };
+
 
 export const fetchGameDetails = async (gameId) => {
   try {
