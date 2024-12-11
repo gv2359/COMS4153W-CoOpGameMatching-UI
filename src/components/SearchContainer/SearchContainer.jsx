@@ -50,7 +50,7 @@ const SearchContainer = () => {
   useEffect(() => {
     const fetchRecommendations = async () => {
       try {
-        const userId = "abcd"; // Replace with the actual user ID
+        const userId = "abcd";
         const response = await fetch(`http://localhost:8005/recommendations/${userId}`);
         if (!response.ok) {
           throw new Error("Failed to fetch recommendations");
@@ -63,8 +63,7 @@ const SearchContainer = () => {
     };
 
     fetchRecommendations();
-  }, []); // Run this effect once when the component mounts
-
+  }, []); 
   return (
     <Container>
       <SearchBox>
@@ -80,7 +79,7 @@ const SearchContainer = () => {
               <GameImage
                 src={
                   game.links.image.href === "No image available"
-                    ? "images/ph1.png" // Replace with your placeholder image URL
+                    ? "images/ph1.png" // placeholder image
                     : game.links.image.href
                 }
                 alt={game.title}
