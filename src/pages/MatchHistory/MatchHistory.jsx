@@ -4,6 +4,33 @@ import { fetchMatchRequests, startMatch, fetchMatchStatus, fetchGameDetails } fr
 import { Container, List, ListItem, Button, GameImage } from './styles';
 
 const MatchHistory = () => {
+  const MatchListItem = React.memo(({ req, onSelect, selected, onInitiate }) => {
+  return (
+    <ListItem onClick={() => onSelect(req.matchRequestId)} selected={selected}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <GameImage src={req.gameImage} alt={`${req.gameName} thumbnail`} />
+        <div style={{ flex: 1 }}>
+          <h3 style={{ margin: '0', fontSize: '1.2rem', color: '#00ffff' }}>{req.gameName}</h3>
+          <p style={{ margin: '4px 0', color: '#ccc' }}>Status: {req.status}</p>
+          <p style={{ margin: '4px 0', color: '#ccc' }}>Expires on: {req.expireDate}</p>
+        </div>
+        <div style={{ textAlign: 'right' }}>
+          {req.status === 'matching' ? (
+            <div style={{ color: '#00ff00', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '5px' }}>
+              ✅ <span>Initiated</span>
+            </div>
+          ) : req.initiated ? (
+            <div style={{ color: '#00ff00', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '5px' }}>
+              ✅ <span>Initiated</span>
+            </div>
+          ) : (
+            <Button onClick={() => onInitiate(req.matchRequestId)}>Initiate</Button>
+          )}
+        </div>
+      </div>
+    </ListItem>
+  );
+});
   const { user } = useAuth();
   const [matchRequests, setMatchRequests] = useState([]);
   const [selectedRequest, setSelectedRequest] = useState(null);
@@ -113,33 +140,13 @@ const MatchHistory = () => {
       <h2>Match History</h2>
       <List>
         {matchRequests.map((req) => (
-          <ListItem
+          <MatchListItem
             key={req.matchRequestId}
-            onClick={() => handleSelect(req.matchRequestId)}
+            req={req}
+            onSelect={handleSelect}
             selected={req.matchRequestId === selectedRequest}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-              <GameImage src={req.gameImage} alt={`${req.gameName} thumbnail`} />
-              <div style={{ flex: 1 }}>
-                <h3 style={{ margin: '0', fontSize: '1.2rem', color: '#00ffff' }}>{req.gameName}</h3>
-                <p style={{ margin: '4px 0', color: '#ccc' }}>Status: {req.status}</p>
-                <p style={{ margin: '4px 0', color: '#ccc' }}>Expires on: {req.expireDate}</p>
-              </div>
-              <div style={{ textAlign: 'right' }}>
-                {req.status === 'matching' ? (
-                  <div style={{ color: '#00ff00', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                    ✅ <span>Initiated</span>
-                  </div>
-                ) : req.initiated ? (
-                  <div style={{ color: '#00ff00', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                    ✅ <span>Initiated</span>
-                  </div>
-                ) : (
-                  <Button onClick={() => handleInitiate(req.matchRequestId)}>Initiate</Button>
-                )}
-              </div>
-            </div>
-          </ListItem>
+            onInitiate={handleInitiate}
+          />
         ))}
       </List>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '16px' }}>
