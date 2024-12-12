@@ -1,12 +1,12 @@
 //TODO: modify later
-const BASE_URL = 'http://localhost:8001';
+const BASE_URL = 'http://localhost:8000';
 
 export const validateGoogleToken = async (idToken) => {
   try {
-    const response = await fetch(`${BASE_URL}/login-google`, {
+    const response = await fetch(`${BASE_URL}/login`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${idToken}`,
+        'Authorization': `Bearer ${idToken}`
       },
     });
 
@@ -26,7 +26,7 @@ export const logoutFromBackend = async (accessToken) => {
       const response = await fetch(`${BASE_URL}/logout`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${accessToken}`,
+          'Authorization': `Bearer ${accessToken}`
         },
       });
   

@@ -50,8 +50,14 @@ const SearchContainer = () => {
   useEffect(() => {
     const fetchRecommendations = async () => {
       try {
-        const userId = "abcd";
-        const response = await fetch(`http://localhost:8005/recommendations/${userId}`);
+        const userData = JSON.parse(sessionStorage.getItem('user'));
+        const accessToken = userData?.accessToken;
+        const response = await fetch(`http://localhost:8000/recommendations`,{
+          method: 'GET',
+          headers: {
+              'Authorization': `Bearer ${accessToken}`
+      },
+    });
         if (!response.ok) {
           throw new Error("Failed to fetch recommendations");
         }

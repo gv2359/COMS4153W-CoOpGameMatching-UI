@@ -8,6 +8,8 @@ export const fetchGames = async ({
   genre = null
 } = {}) => {
   try {
+      const userData = JSON.parse(sessionStorage.getItem('user'));
+      const accessToken = userData?.accessToken;
     // Build query parameters
     const params = new URLSearchParams({
       page: page.toString(),
@@ -18,7 +20,12 @@ export const fetchGames = async ({
     if (gameId) params.append('gameId', gameId);
     if (genre) params.append('genre', genre);
 
-    const response = await fetch(`${BASE_URL}/games?${params}`);
+    const response = await fetch(`${BASE_URL}/games?${params}`,{
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        },
+      });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -39,7 +46,14 @@ export const searchGames = async (title) => {
       page_size: 100
     });
 
-    const response = await fetch(`${BASE_URL}/games?${params}`);
+      const userData = JSON.parse(sessionStorage.getItem('user'));
+      const accessToken = userData?.accessToken;
+    const response = await fetch(`${BASE_URL}/games?${params}`,{
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        },
+      });
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -53,8 +67,14 @@ export const searchGames = async (title) => {
 
 export const updateFavoredGame = async (userId, gameId) => {
   try {
-    const response = await fetch(`${BASE_URL}/games/${userId}/${gameId}`, {
-      method: 'PUT',
+      const userData = JSON.parse(sessionStorage.getItem('user'));
+      const accessToken = userData?.accessToken;
+    const response = await fetch(`${BASE_URL}/favourite`, {
+      method: 'POST',
+      headers: {
+          'Authorization': `Bearer ${accessToken}`
+        },
+      body: {"gameId" : gameId}
     });
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -69,10 +89,13 @@ export const updateFavoredGame = async (userId, gameId) => {
 
 export const createMatchRequest = async (requestData) => {
   try {
+      const userData = JSON.parse(sessionStorage.getItem('user'));
+      const accessToken = userData?.accessToken;
     const response = await fetch(`${BASE_URL}/match-requests`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
       },
       body: JSON.stringify(requestData),
     });
@@ -91,10 +114,13 @@ export const createMatchRequest = async (requestData) => {
 
 export const startMatch = async ({ MatchRequestId }) => {
   try {
+    const userData = JSON.parse(sessionStorage.getItem('user'));
+      const accessToken = userData?.accessToken;
     const response = await fetch(`${BASE_URL}/match-requests/match`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
       },
       body: JSON.stringify({ MatchRequestId }),
     });
@@ -112,7 +138,14 @@ export const startMatch = async ({ MatchRequestId }) => {
 
 export const fetchMatchStatus = async (matchRequestId) => {
   try {
-    const response = await fetch(`${BASE_URL}/match/status/${matchRequestId}`);
+      const userData = JSON.parse(sessionStorage.getItem('user'));
+      const accessToken = userData?.accessToken;
+    const response = await fetch(`${BASE_URL}/match/status/${matchRequestId}`,{
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        },
+      });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -153,6 +186,8 @@ export const fetchMatchStatus = async (matchRequestId) => {
 // };
 export const fetchMatchRequests = async ({ userId, url = null, page = 1, pageSize = 10 }) => {
   try {
+    const userData = JSON.parse(sessionStorage.getItem('user'));
+      const accessToken = userData?.accessToken;
     const endpoint = url || `${BASE_URL}/match-requests?${new URLSearchParams({
       page: page.toString(),
       page_size: pageSize.toString(),
@@ -162,7 +197,7 @@ export const fetchMatchRequests = async ({ userId, url = null, page = 1, pageSiz
 
     const response = await fetch(endpoint, {
       headers: {
-        Authorization: `Bearer ${userId}`, 
+        'Authorization': `Bearer ${accessToken}`,
       },
     });
     console.log('fetchMatchRequests response:', response);
@@ -187,7 +222,12 @@ export const fetchMatchRequests = async ({ userId, url = null, page = 1, pageSiz
 
 export const fetchGameDetails = async (gameId) => {
   try {
-    const response = await fetch(`${BASE_URL}/games/${gameId}`);
+    const response = await fetch(`${BASE_URL}/games/${gameId}`,{
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        },
+      });
     if (!response.ok) {
       if (response.status === 500) {
         console.warn(`Game with ID ${gameId} not found.`);
