@@ -105,11 +105,13 @@ const MatchHistory = () => {
 
   const handleInitiate = async (matchRequestId) => {
     try {
+      const userData = JSON.parse(sessionStorage.getItem('user'));
+      const accessToken = userData?.accessToken;
       const response = await fetch(`${MATCH_REQUEST_URL}/match-requests/match`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${user?.idToken}`,
+          Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify({ MatchRequestId: matchRequestId }),
       });

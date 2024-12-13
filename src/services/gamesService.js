@@ -65,16 +65,18 @@ export const searchGames = async (title) => {
 };
 
 
-export const updateFavoredGame = async (userId, gameId) => {
+export const updateFavoredGame = async (favourite_data) => {
   try {
+    console.log(favourite_data)
       const userData = JSON.parse(sessionStorage.getItem('user'));
       const accessToken = userData?.accessToken;
     const response = await fetch(`${BASE_URL}/favourite`, {
       method: 'POST',
       headers: {
+          'Content-Type': 'application/json',
           'Authorization': `Bearer ${accessToken}`
         },
-      body: {"gameId" : gameId}
+      body: JSON.stringify(favourite_data)
     });
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -222,6 +224,8 @@ export const fetchMatchRequests = async ({ userId, url = null, page = 1, pageSiz
 
 export const fetchGameDetails = async (gameId) => {
   try {
+    const userData = JSON.parse(sessionStorage.getItem('user'));
+      const accessToken = userData?.accessToken;
     const response = await fetch(`${BASE_URL}/games/${gameId}`,{
         method: 'GET',
         headers: {

@@ -99,10 +99,9 @@ export const GameTitle = styled.h3`
 export const GamesGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr); // Exactly 4 cards per row
-  gap: 24px;
+  gap: 420px 24px;
   max-width: 1600px;
   margin: 0 auto;
-  padding: 40px;
   height: calc(100vh - 140px); // Full height minus nav and subnav
   overflow-y: auto; // Enable vertical scrolling
   margin-top: 120px;

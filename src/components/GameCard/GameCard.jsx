@@ -9,7 +9,6 @@ import {
   HeartContainer
 } from './styles';
 
-const HARDCODED_USER_ID = "b0b4f96f-966c-11ef-a4c6-0affd085b90b"; // Temporary
 
 const GameCard = ({ game, onClick }) => {
   const [isFavorited, setIsFavorited] = useState(false);
@@ -20,8 +19,11 @@ const GameCard = ({ game, onClick }) => {
     if (isUpdating) return;
 
     try {
+        const favouritedData = {
+        gameId : game.gameId
+      };
       setIsUpdating(true);
-      await updateFavoredGame(HARDCODED_USER_ID, game.gameId);
+      await updateFavoredGame(favouritedData);
       setIsFavorited(!isFavorited);
     } catch (error) {
       console.error('Failed to update favored game:', error);
