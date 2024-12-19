@@ -3,7 +3,7 @@ import { getAuth } from 'firebase/auth';
 
 //keshav's config
 const firebaseConfig = {
-  apiKey: "AIzaSyA3PfG0zFffbq3bWRNQmrd5emFnR3npcOo",
+  apiKey: "",
   authDomain: "cloud-computing-763fc.firebaseapp.com",
   projectId: "cloud-computing-763fc",
   storageBucket: "cloud-computing-763fc.firebasestorage.app",
